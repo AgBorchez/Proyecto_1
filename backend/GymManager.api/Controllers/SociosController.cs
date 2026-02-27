@@ -20,9 +20,16 @@ namespace GymManager.api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Socio>>> GetAll()
+        public async Task<ActionResult<List<Socio>>> GetAll([FromQuery] string? buscar)
         {
-            var socios = await _context.Socios.ToListAsync();
+            var query = _context.Socios.Where(s => s.IsActive == true).AsQueryable();
+
+            if (!string.IsNullOrEmpty(buscar))
+            {
+                query = query.Where(s => s.Name.Contains(buscar) || s.LastName.Contains(buscar) );
+            }
+
+            var socios = await query.OrderBy(s => s.Id).ToListAsync();
             return Ok(socios);
         }
 
@@ -30,6 +37,7 @@ namespace GymManager.api.Controllers
 
         public async Task<ActionResult<Socio>> Create(Socio nuevoSocio)
         {
+            nuevoSocio.JoinedDate = DateTime.SpecifyKind(nuevoSocio.JoinedDate, DateTimeKind.Utc);
             _context.Socios.Add(nuevoSocio);
 
             await _context.SaveChangesAsync();
@@ -60,6 +68,7 @@ namespace GymManager.api.Controllers
             dbsocio.LastName = SocioActualizado.LastName;
             dbsocio.Email = SocioActualizado.Email;
             dbsocio.IsActive = SocioActualizado.IsActive;
+            dbsocio.JoinedDate = DateTime.SpecifyKind(SocioActualizado.JoinedDate, DateTimeKind.Utc);
 
             await _context.SaveChangesAsync();
 
@@ -80,5 +89,6 @@ namespace GymManager.api.Controllers
 
             return Ok("Socio eliminado correctamente");
         }
+
     }
 }
