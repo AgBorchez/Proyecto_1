@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>GymManager - Recepción</title>
+    <link rel="stylesheet" href="Styles.css">
+</head>
+<body>
+
+    <h1>🏋️‍♂️ Sistema GymManager</h1>
+
+    <div class="tarjeta">
+        <h2 id="tituloFormulario">Alta de Nuevo Socio</h2>
+        <form id="formSocio" onsubmit="guardarSocio(event)">
+            <input type="hidden" id="socioId"> 
+            
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="text" id="apellido" placeholder="Apellido" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <label>
+                <input type="checkbox" id="activo" checked> ¿Está Activo?
+            </label>
+            <button type="submit" class="btn-guardar" id="btnSubmit"> Guardar Socio</button>
+            <button type="button" onclick="cancelarEdicion()" style="display:none;" id="btnCancelar"> Cancelar</button>
+        </form>
+    </div>
+
+    <h2>Lista Oficial</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Estado</th>
+                <th>Acciones</th> </tr>
+        </thead>
+        <tbody id="tablaSocios">
+            </tbody>
+    </table>
+
+    <script src="api.js"></script>
+
+</body>
+</html>
