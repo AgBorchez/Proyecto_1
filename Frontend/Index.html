@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <h1>🏋️‍♂️ Sistema GymManager</h1>
+    <h1>ZXGym - Recepcion</h1>
 
     <div class="tarjeta">
         <h2 id="tituloFormulario">Alta de Nuevo Socio</h2>
@@ -17,12 +17,22 @@
             <input type="text" id="nombre" placeholder="Nombre" required>
             <input type="text" id="apellido" placeholder="Apellido" required>
             <input type="email" id="email" placeholder="Email" required>
+            <input type="date" id="fechaIngreso" placeholder="Fecha de Ingreso" required>
             <label>
                 <input type="checkbox" id="activo" checked> ¿Está Activo?
             </label>
             <button type="submit" class="btn-guardar" id="btnSubmit"> Guardar Socio</button>
             <button type="button" onclick="cancelarEdicion()" style="display:none;" id="btnCancelar"> Cancelar</button>
         </form>
+    </div>
+
+    <div class="tarjeta" style="background-color: #e9ecef;">
+        <h2>Buscar Socio</h2>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="inputBusqueda" placeholder="Buscar por nombre o apellido..." style="flex-grow: 1;">
+            <button class="btn-guardar" onclick="buscarSocios()">Buscar</button>
+            <button class="btn-eliminar" onclick="limpiarBusqueda()">Limpiar</button>
+        </div>
     </div>
 
     <h2>Lista Oficial</h2>
@@ -33,6 +43,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Email</th>
+                <th>Fecha De ingreso</th>
                 <th>Estado</th>
                 <th>Acciones</th> </tr>
         </thead>
@@ -41,6 +52,8 @@
     </table>
 
     <script src="api.js"></script>
+
+    
 
 </body>
 </html>
