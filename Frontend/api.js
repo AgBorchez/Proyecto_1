@@ -1,4 +1,4 @@
-const API_URL = 'https://localhost:7102/api/socios';
+const API_URL = 'https://zxgym.onrender.com/api/socios';
 const btn_theme = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme');
 let currentSortBy = "dni";
