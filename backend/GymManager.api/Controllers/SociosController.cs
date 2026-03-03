@@ -27,14 +27,16 @@ namespace GymManager.api.Controllers
             [FromQuery] bool ActiveOnly = true)
         {
             var query = _context.Socios.AsQueryable();
+            var FechaActual = DateTime.UtcNow;
+
 
             if (ActiveOnly)
             {
-                query = query.Where(s => s.EndDate > DateTime.UtcNow);
+                query = query.Where(s => s.EndDate > FechaActual);
             }
             else
             {
-                query = query.Where(s => s.EndDate < DateTime.UtcNow);
+                query = query.Where(s => s.EndDate < FechaActual);
             }
 
             if (!string.IsNullOrEmpty(buscar))
