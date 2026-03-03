@@ -34,19 +34,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontEnd");
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
-//Render
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<GymContext>(options =>
-    options.UseNpgsql(connectionString));
 
 //para la migracion a render
 using (var scope = app.Services.CreateScope())
