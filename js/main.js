@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
 
         if(DniEditar){
+            EstadoSocios.dniActual = DniEditar;
             const respuesta = await fetch(`${API_SOCIOS_URL}/${DniEditar}`);
 
             if(!respuesta.ok) {
@@ -99,6 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
 
         if(DniEditar){
+            EstadoSocios.dniActual = DniEditar;
             const respuesta = await fetch(`${API_ENTRENADORES_URL}/${DniEditar}`);
 
             if(!respuesta.ok) {
