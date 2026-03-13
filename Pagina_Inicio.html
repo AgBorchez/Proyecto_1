@@ -14,12 +14,12 @@
     <div class="nav-container">
         <div class="logo">ZXGym</div>
         <ul class="nav-links">
-            <li><a href="#">Entrenadores</a></li>
+            <li><a href="Index_Entrenadores.html">Entrenadores</a></li>
             
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Socios</a>
                 <div class="dropdown-content">
-                    <a href="" onclick="cambiarVista('general')">Datos Generales</a>
+                    <a href="" onclick="Pagina_Inicio.html">Datos Generales</a>
                     <a href="Index_Patologias.html">Patologías</a>
                 </div>
             </li>
@@ -29,7 +29,7 @@
 <div class="nav-spacer"></div>
 
 <main class="content-area">
-    <h1>Datos Generales</h1>
+    <h1>Socios - Datos Generales</h1>
     <label class="switch">
         <input type="checkbox" id="theme-toggle">
         <span class="slider"></span>
@@ -43,7 +43,7 @@
     <div class="tarjeta">
         <h2>Buscar Socio</h2>
         <div style="display: flex; gap: 10px;">
-            <input type="text" id="inputBusqueda" placeholder="Buscar por nombre o apellido..." style="flex-grow: 1;">
+            <input type="text" id="inputBusqueda_Socios" placeholder="Buscar por nombre o apellido..." style="flex-grow: 1;">
             <button class="btn-eliminar" onclick="limpiarBusqueda()">Limpiar</button>
         </div>
     </div>

@@ -11,6 +11,8 @@ namespace GymManager.api.Data
         public DbSet<Patologia> Patalogias { get; set; }
         public DbSet<Socio_Patologia> Socios_Patologias { get; set; }
 
+        public DbSet<Entrenador> Entrenadores {  get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

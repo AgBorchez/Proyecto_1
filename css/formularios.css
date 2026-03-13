@@ -1,18 +1,93 @@
-#formSocio {
+.tarjeta-pantalla-completa {
+    width: calc(100% - 40px);
+    min-height: calc(100vh - 40px); 
+    background-color: var(--card-bg);
+    margin: 20px auto; 
+    border-radius: 10px; 
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid var(--bdr-color);
+    padding: 30px;
+}
+
+#formSocio, #formEntrenador {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px; 
-    margin: auto;
+    margin: 0;
     width: 100%;
+    flex-grow: 1;
 }
 
-#formSocio input {
+#formSocio input, 
+#formEntrenador input, 
+#formEntrenador select {
     width: 100%;
     max-width: 400px; 
     padding: 12px 18px;
     border: 1px solid var(--bdr-color);
     border-radius: 4px;
+}
+
+.label-formulario {
+    display: block;
+    width: 100%;
+    max-width: 400px; 
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: -10px; 
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+#Div_Altasocio1, #Div_AltaEntrenador1,
+#Div_Altasocio2, #Div_AltaEntrenador2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+#Btns_Paso1, #Btns_Paso2 {
+    margin-top: auto !important;
+    padding-top: 20px;
+    display: flex; 
+    justify-content: space-between !important; 
+    width: 100% !important; 
+    max-width: 400px; 
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; 
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-grid .input-group:nth-child(1) {
+    grid-column: span 2;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.input-group input {
+    margin: 0 !important; 
+    width: 100%;
 }
 
 #infoFechaVencimiento {
@@ -25,51 +100,27 @@
 .Selector-Planes {
     margin-top: 15px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 10px;
-    max-width: 400px; 
-}
-
-.DivBtnGuardar {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 15px;
-}
-
-#Div_Altasocio1 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-}
-
-#Div_Altasocio2 {
-    display: flex;
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100% !important;
-}
-
-.tarjeta div[style*="display: flex"] {
-    width: 100%;
-    flex-wrap: wrap; 
-}
-
-#inputBusqueda {
-    flex-grow: 1; 
-    min-width: 200px;
 }
 
 .patologias-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: max-content;
-    margin: 0 auto;
+    align-items: flex-start; 
+    width: 100%;
+    max-width: 400px; 
+    margin: 20px auto;
+    gap: 10px;
+}
+
+.patologias-container input[type="checkbox"] {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0 !important;
+    flex-shrink: 0; 
+    cursor: pointer;
 }
 
 .patologias-container label {
@@ -80,12 +131,4 @@
     width: max-content !important;
     gap: 12px !important;
     margin: 0 0 12px 0 !important;
-    cursor: pointer;
-}
-
-.patologias-container input[type="checkbox"] {
-    width: 18px !important;
-    height: 18px !important;
-    margin: 0 !important;
-    cursor: pointer;
 }

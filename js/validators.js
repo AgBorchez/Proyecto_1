@@ -1,30 +1,25 @@
 import { EstadoSocios, EstadoPagina } from "./config.js";
 
 export function ValidacionDatos(Dni, Name, LName, Email, Telefono) {
-     
-    console.log("aaabbbssssccccddddeeee");
-    if(!EstadoSocios.fechaVencimiento){
-        alert("Por favor, selecciona una membresía para determinar la fecha de vencimiento.");
-        return false;
-    }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
     if(isNaN(Dni) || Dni <= 0){
         alert("El campo DNI no puede estar vacío ni contener letras ni ser menor o igual a cero.");
         return false;
     }
 
-    if(!Name.value.trim() || !LName.value.trim()){
+    if(!Name.trim() || !LName.trim()){
         alert("El socio debe tener un nombre y apellido válidos.");
         return false;
     }
 
-    if(!Email.value.trim() || !Email.validity.valid){
+    if(!Email.trim() || !emailRegex.test(Email)){
         alert("Por favor, ingresa un email válido.");
         return false;
     }
 
-    if(Telefono.value.trim().length < 8 || isNaN(parseInt(Telefono.value.trim()))){
+    if(Telefono.trim().length < 8 || isNaN(parseInt(Telefono.trim()))){
         alert("Por favor, ingresa un número de teléfono válido.");
         return false;
     }
@@ -54,4 +49,13 @@ export function SelectorPlanes(meses, idboton) {
         EstadoSocios.PlanSeleccionado = meses;
     }
     document.getElementById("infoFechaVencimiento").innerText = `Vence en: ${EstadoSocios.fechaVencimiento}`;
+}
+
+export function ValidacionDatosEntrenadores(especialidad, turno, fechaIngreso, fechaRCP){
+    if(!especialidad) { alert("Ingerese una especialidad"); return false }
+    if(!turno) { alert("Ingrese un turno"); return false }
+    if(!fechaIngreso) { alert ("Ingrese una fecha de ingreso"); return false }
+    if(!fechaRCP) { alert ("Ingrese una fecha de vencimiento para la certificacion de RCP"); return false }
+
+    return true;
 }

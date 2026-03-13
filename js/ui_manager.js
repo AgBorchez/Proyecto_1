@@ -1,9 +1,9 @@
-import { API_URL, EstadoPagina, EstadoSocios } from "./config.js";
+import { API_SOCIOS_URL, API_ENTRENADORES_URL, EstadoPagina, EstadoSocios } from "./config.js";
 
 export async function cargarSocios(textoBusqueda = '') {
     try {
         let contenido = '';
-        let urlfinal = `${API_URL}?buscar=${encodeURIComponent(textoBusqueda)}&SortBy=${EstadoSocios.currentSortBy}&IsAscending=${EstadoPagina.CurrentIsAscending}&ActiveOnly=${EstadoPagina.FiltroEstadoSocios}`;
+        let urlfinal = `${API_SOCIOS_URL}?buscar=${encodeURIComponent(textoBusqueda)}&SortBy=${EstadoSocios.currentSortBy}&IsAscending=${EstadoPagina.CurrentIsAscending}&ActiveOnly=${EstadoPagina.FiltroEstadoSocios}`;
 
         const respuesta = await fetch(urlfinal);
         const socios = await respuesta.json();
@@ -28,7 +28,7 @@ export async function cargarSocios(textoBusqueda = '') {
                             <td>${socio.endDate ? new Date(socio.endDate).toLocaleDateString('es-AR', {timeZone: 'UTC'}) : 'N/A'}</td>
                             <td>${socio.planId}</td>
                             <td>
-                                <button class="btn-editar" onclick="prepararEdicion(${socio.dni})">Editar</button>
+                                <button class="btn-editar" onclick="prepararEdicionSocios(${socio.dni})">Editar</button>
                                 <button class="btn-eliminar" onclick="borrarSocio(${socio.dni})">Borrar</button>
                             </td>
                         </tr>
@@ -50,28 +50,8 @@ export async function cargarSocios(textoBusqueda = '') {
     }
 }
 
-export async function prepararEdicion(dni) {
+export async function prepararEdicionSocios(dni) {
     window.open(`Crear_Socio.html?editarDni=${dni}`, 'AltaSocio', 'width=550,height=650,resizable=no,scrollbars=yes');
-}
-
-
-export function cancelarEdicion() {
-
-    EstadoSocios.dniSocioActual = null;
-    EstadoPagina.EditionMode = false;
-    document.getElementById('formSocio').reset();
-    document.getElementById('tituloFormulario').innerText = "Alta de Nuevo Socio";
-    document.getElementById('btnSubmit').innerText = "Guardar Socio";
-    document.getElementById('btnSubmit').className = "btn-guardar";
-    document.getElementById('btnCancelar').style.display = "none";
-    document.getElementById('dni').readOnly = false;
-    document.getElementById('dni').value = '';
-    EstadoSocios.fechaVencimiento = '';
-    document.getElementById("infoFechaVencimiento").innerText = '';
-    EstadoSocios.PlanSeleccionado = null;
-    document.querySelectorAll('.btn-Plan').forEach(btn => {
-        btn.style.backgroundColor = 'var(--plan-Btn)';
-    });
 }
 
 export function FiltroEstado(activo, idBtn) {
@@ -84,11 +64,6 @@ export function FiltroEstado(activo, idBtn) {
     });
     cargarSocios();
 
-}
-
-export function buscarSocios() {
-    const textoBusqueda = document.getElementById('inputBusqueda').value;
-    cargarSocios(textoBusqueda);
 }
 
 export function limpiarBusqueda() {
@@ -113,44 +88,11 @@ export function abrirFormulario(){
     window.open('Crear_Socio.html', 'AltaSocio', 'width=550,height=650,resizable=no,scrollbars=yes');
 }
 
-export function EstadoFormulario(estado){
-
-    const DivsPaso2 = document.querySelectorAll('.AltaSocio_1');
-    const DivsPaso1 = document.querySelectorAll('.AltaSocio_2');
-
-    switch(estado){
-        case 1:
-            DivsPaso1.forEach(D => {
-                D.style.display = 'none';
-                console.log("Paso 1 oculto.");
-            });
-
-            DivsPaso2.forEach(D => {
-                D.style.display = '';
-                console.log("Paso 2 oculto.");
-            });
-            
-            break;
-        case 2:
-            
-            DivsPaso2.forEach(D => {
-                D.style.display = 'none';
-                console.log("Paso 2 oculto.");
-            });
-
-            DivsPaso1.forEach(D => {
-                D.style.display = '';
-                console.log("Paso 1 oculto.");
-            });
-            break;
-    }
-}
-
 export async function cargarSocios_TablaPatologias(textoBusqueda = '') {
     try {
         let tablaPatologias = true;
         let contenido = '';
-        let urlfinal = `${API_URL}?buscar=${encodeURIComponent(textoBusqueda)}&Tabla_Patologias=${tablaPatologias}&SortBy=${EstadoSocios.currentSortBy}&IsAscending=${EstadoPagina.CurrentIsAscending}`;
+        let urlfinal = `${API_SOCIOS_URL}?buscar=${encodeURIComponent(textoBusqueda)}&Tabla_Patologias=${tablaPatologias}&SortBy=${EstadoSocios.currentSortBy}&IsAscending=${EstadoPagina.CurrentIsAscending}`;
 
         const respuesta = await fetch(urlfinal);
         const socios = await respuesta.json();
@@ -193,7 +135,53 @@ export async function cargarSocios_TablaPatologias(textoBusqueda = '') {
     }
 }
 
-export function buscarSocios_TablaPatologias() {
-    const textoBusqueda = document.getElementById('inputBusqueda').value;
-    cargarSocios_TablaPatologias(textoBusqueda);
+export async function cargarEntrenadores(textoBusqueda = '') {
+    try {
+        let contenido = '';
+        
+        let urlfinal = `${API_ENTRENADORES_URL}?buscar=${encodeURIComponent(textoBusqueda)}&SortBy=${EstadoSocios.currentSortBy}&IsAscending=${EstadoPagina.CurrentIsAscending}`;
+
+        const respuesta = await fetch(urlfinal);
+        const entrenadores = await respuesta.json();
+
+        const tabla = document.getElementById('tablaEntrenadores');
+        tabla.innerHTML = '';
+
+        if(entrenadores.length === 0){
+            tabla.innerHTML = '<tr><td colspan="10" style="text-align: center;">No se encontraron entrenadores.</td></tr>';
+            return;
+        }
+
+        entrenadores.forEach(entrenador => {
+            const fila = `
+                <tr>
+                    <td>${entrenador.dni}</td>
+                    <td>${entrenador.name}</td>
+                    <td>${entrenador.lastName}</td>
+                    <td>${entrenador.email}</td>
+                    <td>${entrenador.phone}</td>
+                    <td>${entrenador.specialty}</td>
+                    <td>${entrenador.shift}</td>
+                    <td>${entrenador.joinDate ? new Date(entrenador.joinDate).toLocaleDateString('es-AR', {timeZone: 'UTC'}) : 'N/A'}</td>
+                    <td>${entrenador.rcpExpirationDate ? new Date(entrenador.rcpExpirationDate).toLocaleDateString('es-AR', {timeZone: 'UTC'}) : 'N/A'}</td>
+                    <td>
+                        <button class="btn-editar" onclick="prepararEdicionEntrenador(${entrenador.dni})">Editar</button>
+                        <button class="btn-eliminar" onclick="borrarEntrenador(${entrenador.dni})">Borrar</button>
+                    </td>
+                </tr>
+            `;
+            contenido += fila;
+        });
+
+        tabla.innerHTML = contenido;
+     
+    } catch (error) {
+        console.error("Error al cargar los entrenadores:", error);
+    }
 }
+
+export async function prepararEdicionEntrenador(dni) {
+    window.open(`Registrar_Entrenador.html?editarDni=${dni}`, 'AltaEntrenador', 'width=550,height=650,resizable=no,scrollbars=yes');
+}
+
+

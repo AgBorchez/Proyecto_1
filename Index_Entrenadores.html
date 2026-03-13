@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ZXGym - Entrenadores</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/tablas.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/formularios.css">
+</head>
+<body>
+
+<nav class="main-nav">
+    <div class="nav-container">
+        <div class="logo">ZXGym</div>
+        <ul class="nav-links">
+            <li><a href="Index_Entrenadores.html">Entrenadores</a></li>
+            
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Socios</a>
+                <div class="dropdown-content">
+                    <a href="Pagina_Inicio.html">Datos Generales</a>
+                    <a href="Index_Patologias.html">Patologías</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="nav-spacer"></div>
+
+<main class="content-area">
+    <h1>Staff - Entrenadores</h1>
+    
+    <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+        Modo Oscuro
+    </label>
+
+    <div class="tarjeta">
+        <button class="btn-guardar" onclick="window.open('Registrar_Entrenador.html', 'AltaEntrenador', 'width=550,height=650,resizable=no,scrollbars=yes');">Agregar Nuevo Entrenador</button>
+    </div>
+
+    <div class="tarjeta">
+        <h2>Buscar Entrenador</h2>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="inputBusquedaEntrenadores" placeholder="Buscar por nombre, apellido o especialidad..." style="flex-grow: 1;">
+            <button class="btn-eliminar" onclick="limpiarBusquedaEntrenadores()">Limpiar</button>
+        </div>
+    </div>
+
+    <div class="Header-Tabla">
+        <h2>Lista Oficial de Staff</h2>
+        <div>
+            <button id="filtro-Activo-Entrenador" class="btn-filtro" onclick="FiltroEstadoEntrenadores(true, 'filtro-Activo-Entrenador')">Mostrar Activos</button>
+            <button id="filtro-Inactivo-Entrenador" class="btn-filtro" onclick="FiltroEstadoEntrenadores(false, 'filtro-Inactivo-Entrenador')">Mostrar Inactivos</button>
+        </div>
+    </div>
+
+    <div class="tabla-scroll">
+        <table>
+            <thead>
+                <tr class="tr-tablaInicio">
+                    <th onclick="ordenarEntrenadoresPor('dni')" style="cursor:pointer">DNI ⬍</th>
+                    <th onclick="ordenarEntrenadoresPor('name')" style="cursor:pointer">Nombre ⬍</th>
+                    <th onclick="ordenarEntrenadoresPor('lastName')" style="cursor:pointer">Apellido ⬍</th>
+                    <th onclick="ordenarEntrenadoresPor('email')" style="cursor:pointer">Email ⬍</th>
+                    <th>Teléfono</th>
+                    <th onclick="ordenarEntrenadoresPor('specialty')" style="cursor:pointer">Especialidad ⬍</th>
+                    <th onclick="ordenarEntrenadoresPor('shift')" style="cursor:pointer">Turno ⬍</th>
+                    <th onclick="ordenarEntrenadoresPor('joinDate')" style="cursor:pointer">Ingreso ⬍</th>
+                    <th onclick="ordenarEntrenadoresPor('rcpDate')" style="cursor:pointer">Venc. RCP ⬍</th>
+                    <th>Acciones</th> 
+                </tr>
+            </thead>
+            <tbody id="tablaEntrenadores">
+                </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
